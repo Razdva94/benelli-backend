@@ -8,7 +8,7 @@ exports.sendMessage = (req, res) => {
     name, email, service, message,
   } = req.body;
   console.log(name, email, service, message);
-  const chatId = '1057943364';
+  const chatId = '917943994';
   // eslint-disable-next-line no-sequences
   const text = `Вы получили новое сообщение:
   Имя: ${name}
