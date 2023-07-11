@@ -11,7 +11,7 @@ app.use(express.json());
 app.use(requestLogger);
 
 app.post(
-  '/api/send-info',
+  '/send-info',
   celebrate({
     [Segments.BODY]: Joi.object().keys({
       email: Joi.string().email().min(2).max(30)
