@@ -1,19 +1,19 @@
 const TelegramBot = require('node-telegram-bot-api');
 
-const bot = new TelegramBot('6170489957:AAHify6Q9CEAoT6YLCRXQ9ghUr7QzIl3fN0', {
+const bot = new TelegramBot('6057333968:AAE5aqIiK_8gXwasTxutLY_tt7TENUXobSM', {
   polling: false,
 });
 exports.sendMessage = (req, res) => {
   const {
-    name, email, service, message,
+    motoName, name, mobileNumber, message,
   } = req.body;
-  console.log(name, email, service, message);
-  const chatId = '917943994';
+  console.log(motoName, name, mobileNumber, message);
+  const chatId = '365760486';
   // eslint-disable-next-line no-sequences
   const text = `Вы получили новое сообщение:
+  Мотоцикл: ${motoName}
   Имя: ${name}
-  Email: ${email}
-  Услуга: ${service}
+  Номер Телефона: ${mobileNumber}
   Сообщение: ${message}`;
   bot
     .sendMessage(chatId, text)

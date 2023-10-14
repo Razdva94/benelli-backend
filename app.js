@@ -1,7 +1,9 @@
+/* eslint-disable import/no-extraneous-dependencies */
 const express = require('express');
 const {
   celebrate, Segments, Joi, errors,
 } = require('celebrate');
+const cors = require('cors');
 const { requestLogger, errorLogger } = require('./middlewares/logger');
 const { sendMessage } = require('./middlewares/telegram');
 const { errorHandler } = require('./middlewares/error');
@@ -9,15 +11,21 @@ const { errorHandler } = require('./middlewares/error');
 const app = express();
 app.use(express.json());
 app.use(requestLogger);
+app.use(
+  cors({
+    origin: 'http://localhost:3001',
+    exposedHeaders: 'Access-Control-Allow-Origin',
+    credentials: true,
+  }),
+);
 
 app.post(
   '/api/send-info',
   celebrate({
     [Segments.BODY]: Joi.object().keys({
-      email: Joi.string().email().min(2).max(30)
-        .required(),
+      motoName: Joi.string().required(),
       name: Joi.string().min(2).max(30).required(),
-      service: Joi.string().required(),
+      mobileNumber: Joi.string().required(),
       message: Joi.string().min(2).optional(),
     }),
   }),
