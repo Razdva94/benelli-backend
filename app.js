@@ -1,23 +1,40 @@
 /* eslint-disable import/no-extraneous-dependencies */
 const express = require('express');
+const mongoose = require('mongoose');
 const {
   celebrate, Segments, Joi, errors,
 } = require('celebrate');
 const cors = require('cors');
+const motorcycleRoutes = require('./routes/motorcycle');
 const { requestLogger, errorLogger } = require('./middlewares/logger');
 const { sendMessage } = require('./middlewares/telegram');
 const { errorHandler } = require('./middlewares/error');
 
 const app = express();
 app.use(express.json());
+const { NODE_ENV, BAZE_URL } = process.env;
+const mongoURI = NODE_ENV === 'production' ? BAZE_URL : 'mongodb://0.0.0.0:27017/motodb';
+mongoose
+  .connect(mongoURI, {
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
+  })
+  .then(() => {
+    console.log('Connected to MongoDB');
+  })
+  .catch((error) => {
+    console.error('Error connecting to MongoDB:', error);
+  });
 app.use(requestLogger);
 app.use(
   cors({
-    origin: 'https://benellispb.ru',
+    origin: 'http://localhost:3001',
     exposedHeaders: 'Access-Control-Allow-Origin',
     credentials: true,
   }),
 );
+
+// https://benellispb.ru
 
 app.post(
   '/api/send-info',
@@ -31,6 +48,7 @@ app.post(
   }),
   sendMessage,
 );
+app.use('', motorcycleRoutes);
 app.use(errorLogger);
 app.use(errors());
 app.use(errorHandler);
