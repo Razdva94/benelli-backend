@@ -37,7 +37,7 @@ app.use(
 // https://benellispb.ru
 // http://localhost:3001
 app.post(
-  '/api/send-info',
+  '/apiS/send-info',
   celebrate({
     [Segments.BODY]: Joi.object().keys({
       motoName: Joi.string().required(),

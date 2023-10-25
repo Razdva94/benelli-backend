@@ -6,7 +6,7 @@ const motorcycle = require('../controllers/motorcycles');
 const router = express.Router();
 
 router.post(
-  '/api/motorcycles',
+  '/apiS/motorcycles',
   celebrate({
     [Segments.BODY]: Joi.object().keys({
       mainImage: Joi.string().required().pattern(urlPattern),
@@ -30,9 +30,9 @@ router.post(
   motorcycle.createMotorcycle,
 );
 
-router.get('/api/motorcycles', motorcycle.getMotorcycle);
+router.get('/apiS/motorcycles', motorcycle.getMotorcycle);
 router.delete(
-  '/api/motorcycles',
+  '/apiS/motorcycles',
   celebrate({
     [Segments.BODY]: Joi.object().keys({
       motoName: Joi.string().required(),
