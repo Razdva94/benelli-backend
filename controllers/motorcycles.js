@@ -26,8 +26,7 @@ exports.getMotorcycle = async (req, res, next) => {
 exports.deleteMotorcycle = async (req, res, next) => {
   try {
     const { motoName } = req.body;
-    const formattedMotoName = motoName.replace(/ /g, '_');
-    const moto = await Motorcycle.findOne({ motoName: formattedMotoName });
+    const moto = await Motorcycle.findOne({ motoName });
     if (moto) {
       await moto.deleteOne({ _id: moto._id });
       res.status(200).json({ message: 'Мотоцикл успешно удален' });
