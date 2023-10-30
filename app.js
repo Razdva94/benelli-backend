@@ -1,14 +1,11 @@
 /* eslint-disable import/no-extraneous-dependencies */
 const express = require('express');
 const mongoose = require('mongoose');
-const multer = require('multer');
 const {
   celebrate, Segments, Joi, errors,
 } = require('celebrate');
 const cors = require('cors');
 const path = require('path');
-// const uploadRouter = require('./routes/upload');
-const motorcycleRoutes = require('./routes/motorcycle');
 const { requestLogger, errorLogger } = require('./middlewares/logger');
 const { sendMessage } = require('./middlewares/telegram');
 const { errorHandler } = require('./middlewares/error');
@@ -37,29 +34,6 @@ app.use(
     credentials: true,
   }),
 );
-// app.use('/', uploadRouter);
-
-const storage = multer.diskStorage({
-  destination: (req, file, cb) => {
-    console.log(req);
-    cb(null, 'uploads/'); // Папка, куда будут сохраняться файлы
-  },
-  filename: (req, file, cb) => {
-    cb(null, `${Date.now()}-${file.originalname}`); // Генерация имени файла
-  },
-});
-
-const upload = multer({ storage });
-
-app.post('/apiS/upload', (req, res) => {
-  upload.single('image')(req, res, (err) => {
-    if (err) {
-      console.error('Ошибка при загрузке файла:', err);
-      return res.status(500).json({ error: 'Ошибка при загрузке файла' });
-    }
-    return res.json({ message: 'Файл успешно загружен' });
-  });
-});
 
 // https://benellispb.ru
 // http://localhost:3001
@@ -75,7 +49,6 @@ app.post(
   }),
   sendMessage,
 );
-app.use('', motorcycleRoutes);
 app.use(errorLogger);
 app.use(errors());
 app.use(errorHandler);
