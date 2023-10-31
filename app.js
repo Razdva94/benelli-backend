@@ -29,7 +29,7 @@ mongoose
 app.use(requestLogger);
 app.use(
   cors({
-    origin: 'http://localhost:3001',
+    origin: 'https://benellispb.ru',
     exposedHeaders: 'Access-Control-Allow-Origin',
     credentials: true,
   }),
