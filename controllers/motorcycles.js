@@ -29,7 +29,7 @@ exports.deleteMotorcycle = async (req, res, next) => {
     const moto = await Motorcycle.findOne({ motoName });
     if (moto) {
       await moto.deleteOne({ _id: moto._id });
-      res.status(200).json({ message: 'Мотоцикл успешно удален' });
+      res.status(200).json(moto.motoLinks);
     } else {
       res.status(404).json({ message: 'Мотоцикл не найден' });
     }
