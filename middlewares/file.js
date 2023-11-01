@@ -6,7 +6,8 @@ const storage = multer.diskStorage({
     cb(null, 'uploads/');
   },
   filename: (req, file, cb) => {
-    cb(null, `${Date.now()}-${file.originalname}`);
+    const { motoName } = req.query;
+    cb(null, `${motoName}-${file.originalname}`);
   },
 });
 module.exports = multer({ storage });

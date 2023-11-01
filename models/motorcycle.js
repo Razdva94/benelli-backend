@@ -1,5 +1,5 @@
 const { Schema, model } = require('mongoose');
-const { isURL } = require('validator');
+// const { isURL } = require('validator');
 
 const motoSchema = new Schema(
   {
@@ -10,11 +10,6 @@ const motoSchema = new Schema(
     motoPrice: {
       type: String,
       required: true,
-    },
-    mainImage: {
-      type: String,
-      required: true,
-      validate: [isURL, 'Неверный формат URL постера'],
     },
     motoPerformance: {
       mass: {
@@ -57,9 +52,8 @@ const motoSchema = new Schema(
     description: {
       type: Array,
     },
-    catalog: {
+    motoLinks: {
       type: Array,
-      required: true,
     },
   },
   { versionKey: false },
