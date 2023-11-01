@@ -17,11 +17,15 @@ const app = express();
 app.use(express.json());
 app.use(
   cors({
-    origin: 'http://localhost:3001',
+    origin: 'https://benellispb.ru',
     exposedHeaders: 'Access-Control-Allow-Origin',
     credentials: true,
   }),
 );
+
+// https://benellispb.ru
+// http://localhost:3001
+
 app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
 const { NODE_ENV, BAZE_URL } = process.env;
 const mongoURI = NODE_ENV === 'production' ? BAZE_URL : 'mongodb://0.0.0.0:27017/motodb';
@@ -40,8 +44,6 @@ app.use(requestLogger);
 
 app.use('/', uploadRouter);
 
-// https://benellispb.ru
-// http://localhost:3001
 app.post(
   '/apiS/send-info',
   celebrate({
