@@ -20,7 +20,7 @@ const app = express();
 app.use(express.json());
 app.use(
   cors({
-    origin: 'https://benellispb.ru',
+    origin: ['https://www.benellispb.ru/', 'https://benellispb.ru/'],
     exposedHeaders: 'Access-Control-Allow-Origin',
     credentials: true,
   }),
