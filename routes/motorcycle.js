@@ -23,7 +23,7 @@ router.post(
         torque: Joi.string().required(),
       }),
       description: Joi.array().items(Joi.string()),
-      motoLinks: Joi.array().items(Joi.string()),
+      motoLinks: Joi.array().items(Joi.string()).required(),
     }),
   }),
   motorcycle.createMotorcycle,
@@ -40,4 +40,16 @@ router.delete(
   motorcycle.deleteMotorcycle,
 );
 
+router.patch(
+  '/apiS/motorcycles',
+  celebrate({
+    [Segments.BODY]: Joi.object().keys({
+      motoName: Joi.string().required(),
+      motoPrice: Joi.string(),
+      description: Joi.array().items(Joi.string()),
+      motoLinks: Joi.array().items(Joi.string()),
+    }),
+  }),
+  motorcycle.changeMotorcycle,
+);
 module.exports = router;

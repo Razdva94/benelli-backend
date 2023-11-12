@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 const Motorcycle = require('../models/motorcycle');
 const WrongData = require('../middlewares/WrongDataError');
 
@@ -33,6 +34,24 @@ exports.deleteMotorcycle = async (req, res, next) => {
     } else {
       res.status(404).json({ message: 'Мотоцикл не найден' });
     }
+  } catch (error) {
+    next(error);
+  }
+};
+
+exports.changeMotorcycle = async (req, res, next) => {
+  try {
+    const {
+      motoName, motoPrice, description, motoLinks,
+    } = req.body;
+    const motorcycle = await Motorcycle.findOne({ motoName });
+
+    const updatedUser = await Motorcycle.findByIdAndUpdate(
+      motorcycle._id,
+      { motoPrice, description, motoLinks },
+      { new: true, runValidators: true },
+    );
+    res.status(200).json(updatedUser);
   } catch (error) {
     next(error);
   }
