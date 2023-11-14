@@ -1,6 +1,8 @@
+/* eslint-disable consistent-return */
 /* eslint-disable no-unused-vars */
 const Motorcycle = require('../models/motorcycle');
 const WrongData = require('../middlewares/WrongDataError');
+const WrongId = require('../middlewares/WrongIdError');
 
 exports.createMotorcycle = async (req, res, next) => {
   try {
@@ -41,11 +43,14 @@ exports.deleteMotorcycle = async (req, res, next) => {
 
 exports.changeMotorcycle = async (req, res, next) => {
   try {
+    console.log(req.body);
     const {
       motoName, motoPrice, description, motoLinks,
     } = req.body;
     const motorcycle = await Motorcycle.findOne({ motoName });
-
+    if (!motorcycle) {
+      next(new WrongId('Указанный мотоцикл не найден'));
+    }
     const updatedUser = await Motorcycle.findByIdAndUpdate(
       motorcycle._id,
       { motoPrice, description, motoLinks },
