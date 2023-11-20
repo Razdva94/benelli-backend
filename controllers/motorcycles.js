@@ -17,10 +17,26 @@ exports.createMotorcycle = async (req, res, next) => {
   }
 };
 
-exports.getMotorcycle = async (req, res, next) => {
+exports.getMotorcycles = async (req, res, next) => {
   try {
     const moto = await Motorcycle.find();
     res.status(200).json(moto);
+  } catch (error) {
+    next(error);
+  }
+};
+
+exports.getMotorcycle = async (req, res, next) => {
+  try {
+    const { motorcycleNameWithSpaces } = req.body;
+    const moto = await Motorcycle.findOne({
+      motoName: motorcycleNameWithSpaces,
+    });
+    if (moto) {
+      res.status(200).json(moto);
+    } else {
+      res.status(404).json({ message: 'Мотоцикл не найден' });
+    }
   } catch (error) {
     next(error);
   }

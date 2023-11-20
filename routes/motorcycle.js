@@ -29,7 +29,8 @@ router.post(
   motorcycle.createMotorcycle,
 );
 
-router.get('/apiS/motorcycles', motorcycle.getMotorcycle);
+router.get('/apiS/motorcycles', motorcycle.getMotorcycles);
+router.post('/apiS/motorcycle', motorcycle.getMotorcycle);
 router.delete(
   '/apiS/motorcycles',
   celebrate({
