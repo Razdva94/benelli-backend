@@ -20,7 +20,7 @@ exports.createMotorcycle = async (req, res, next) => {
 exports.getMotorcycles = async (req, res, next) => {
   try {
     const moto = await Motorcycle.find();
-    console.log('5', moto);
+    console.log(moto);
     res.status(200).json(moto);
   } catch (error) {
     next(error);
