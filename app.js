@@ -9,6 +9,7 @@ const cors = require('cors');
 const path = require('path');
 const uploadRouter = require('./routes/photos');
 const motorcycleRoutes = require('./routes/motorcycle');
+const bannerRoutes = require('./routes/banner');
 const loginRoute = require('./routes/login');
 const { requestLogger, errorLogger } = require('./middlewares/logger');
 const { sendMessage } = require('./middlewares/telegram');
@@ -59,7 +60,9 @@ app.post(
 
 app.use('/', loginRoute);
 app.use('/', motorcycleRoutes);
+app.use('/', bannerRoutes);
 app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
+app.use('/banners', express.static(path.join(__dirname, 'banners')));
 app.use('/', uploadRouter);
 app.use(auth);
 app.use((req, res, next) => {

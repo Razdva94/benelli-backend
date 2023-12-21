@@ -20,7 +20,6 @@ exports.createMotorcycle = async (req, res, next) => {
 exports.getMotorcycles = async (req, res, next) => {
   try {
     const moto = await Motorcycle.find();
-    console.log(moto);
     res.status(200).json(moto);
   } catch (error) {
     next(error);
@@ -60,7 +59,6 @@ exports.deleteMotorcycle = async (req, res, next) => {
 
 exports.changeMotorcycle = async (req, res, next) => {
   try {
-    console.log(req.body);
     const {
       motoName, motoPrice, description, motoLinks,
     } = req.body;
